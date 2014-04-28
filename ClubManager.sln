@@ -15,6 +15,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Reference", "Reference", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClubManager.Model", "ClubManager.Model\ClubManager.Model.csproj", "{4C6F894E-CFDA-46B8-B14C-4E87252CC3D4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Configuration", "Core.Configuration\Core.Configuration.csproj", "{C73AAA10-064A-4C72-A2D9-6CF1F0EB035A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,12 +47,23 @@ Global
 		{4C6F894E-CFDA-46B8-B14C-4E87252CC3D4}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{4C6F894E-CFDA-46B8-B14C-4E87252CC3D4}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{4C6F894E-CFDA-46B8-B14C-4E87252CC3D4}.Release|x86.ActiveCfg = Release|Any CPU
+		{C73AAA10-064A-4C72-A2D9-6CF1F0EB035A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C73AAA10-064A-4C72-A2D9-6CF1F0EB035A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C73AAA10-064A-4C72-A2D9-6CF1F0EB035A}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C73AAA10-064A-4C72-A2D9-6CF1F0EB035A}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{C73AAA10-064A-4C72-A2D9-6CF1F0EB035A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C73AAA10-064A-4C72-A2D9-6CF1F0EB035A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C73AAA10-064A-4C72-A2D9-6CF1F0EB035A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C73AAA10-064A-4C72-A2D9-6CF1F0EB035A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C73AAA10-064A-4C72-A2D9-6CF1F0EB035A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{C73AAA10-064A-4C72-A2D9-6CF1F0EB035A}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{19439F8E-6E33-4494-BB4A-A8FE7FFD22C8} = {DF831668-2B48-42C8-8FBC-4EBE7995A51D}
+		{C73AAA10-064A-4C72-A2D9-6CF1F0EB035A} = {42253E36-A5CF-40DC-BDF2-7688746DACC5}
 		{4C6F894E-CFDA-46B8-B14C-4E87252CC3D4} = {3D26BC7F-7DAE-42A8-8663-450004D494A2}
 	EndGlobalSection
 EndGlobal
