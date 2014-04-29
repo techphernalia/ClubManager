@@ -4,7 +4,7 @@
 
 > We will keep updating the document as we proceed.
 
-<p style="text-align: center;"><strong>Synopsis</strong></p>
+**Synopsis**
 
 We will be creating a windows application named “Club Membership” in C# using MongoDB as our active database. This application can be used at any subscription based scenario, e.g.
 
@@ -28,11 +28,11 @@ This application will be used by the administrator (or clerk) of the organizatio
 
 
 <hr />
-<p style="text-align: center;"><strong>Technical Discussion</strong></p>
+**Technical Discussion**
 
 Let us now discuss on some of the technical aspects regarding what all technologies we will be using and how the project is going to be organized. Firstly you should be aware that this is going to be a windows application and not a web application as some of you might be thinking. We will be using .Net Framework for our front end design and MongoDB for our database. Choice of .Net Framework and MongoDB is purely random and does not have any logical reason apart from learning. You can use Java, PHP for your front end design and MySQL, MSSQL, Sybase, Oracle, etc for your database.
 
-So we will be using:
+So we are using:
 
 * Microsoft Visual Studio 2010 (for IDE)
 * C# .Net Framework 3.5 (as our coding language)
@@ -43,7 +43,7 @@ Following are the major namespaces that we will be using and may contain further
 * Core: To contain all the generic app independent code.
 * ClubManager: To contain all the Club Membership app related code.
 
-This application will be divided in multiple projects separating different layers, aspects or concerns and will be evident soon. We will use ‘.’ to separate part of names in our projects, e.g. <strong><sup>1</sup></strong>
+This application will be divided in multiple projects separating different layers, aspects or concerns and will be evident soon. We will use ‘.’ to separate part of names in our projects, e.g. **<sup>1</sup>**
 
 * Core
 * Core.ConfigManager
@@ -53,14 +53,14 @@ This application will be divided in multiple projects separating different layer
 * ClubManager.Data
 * ClubManager.Model
 
-<blockquote><strong><sup>1</sup></strong> We will discuss what these projects are doing later.</blockquote>
+> **<sup>1</sup>** We will discuss what these projects are doing later.
 
 <hr />
-<p style="text-align: center;"><strong>Core Concepts</strong></p>
+<p style="text-align: center;">**Core Concepts**</p>
 
-<strong>C#</strong> : We will discussing some .Net (applicable to C#) concepts like Extension Methods, Static Constructors, Abstract classes, etc first and then dive into coding. We will also highlight them back as and when the same is used in the code.
+**C#** : We will discussing some .Net (applicable to C#) concepts like Extension Methods, Static Constructors, Abstract classes, etc first and then dive into coding. We will also highlight them back as and when the same is used in the code.
 
-<strong>Abstract Classes</strong>
+**Abstract Classes**
 Abstract classes are something in between interface and classes. Abstract classes can have one or more abstract methods (which are not defined, same as method signatures in interfaces) along-with fully defined methods (methods having definition). Now you may ask why use abstract classes when we have interface and classes doing their jobs sincerely. Let us understand this requirement in reverse.
 
 We will suppose an abstract class having 2 implemented and 2 unimplemented methods for following example.
@@ -72,16 +72,16 @@ Why not use classes instead of abstract classes. If we use class then we can not
 e.g. code of an abstract class:
 
 <hr />
-<p style="text-align: center;"><strong>Setting up the solution</strong></p>
+<p style="text-align: center;">**Setting up the solution**</p>
 
-<strong>Create solution “ClubManager”</strong>
+**Create solution “ClubManager”**
 Fire your visual studio (Microsoft Visual Studio 2010 in our case). We are going to name our application ClubManager and same will be our solution name. Our application is a windows form application. So let us create one.
 
 * Go to File-&gt;New-&gt;Project-&gt;Visual C#-&gt;Windows-&gt;Windows Form Application
 * Name it ClubManager
 * Leave Create directory for solution checked
 
-<strong>Create solution folders</strong>
+**Create solution folders**
 We said that we will be manage our solution in multiple solution folders. So let us add<sup>2</sup> some as given below:
 
 * Core: To contain core projects which are independent of ClubManager application but will be used in ClubManager and other future applications.
@@ -94,7 +94,7 @@ We said that we will be manage our solution in multiple solution folders. So let
 Move (Drag and Drop) ClubManager project in App folder created above. So our solution is all set and we can start coding.
 
 <hr />
-<p style="text-align: center;"><strong>Discussing Dependency</strong></p>
+<p style="text-align: center;">**Discussing Dependency**</p>
 
 You might have already discovered that we are mainly dealing with Member, MemberShipPlan and Fee in this application as our data collection. If you have not figured that out till now, please read previous contents again and ponder on them.
 
@@ -114,7 +114,7 @@ But why are we discussing this? This discussion has given us an idea on how we s
 
 
 <hr />
-<p style="text-align: center;"><strong>Create MemberShipPlan</strong></p>
+<p style="text-align: center;">**Create MemberShipPlan**</p>
 
 So what are all the properties of MemberShipPlan that we require:
 
@@ -135,7 +135,7 @@ Apart from above we also need to maintain if the plan is active or not, and some
 
 <blockquote><sup>3</sup>We use _id everywhere as object identifier.</blockquote>
 <ol>
-* Now let us add a new Class Library project in <strong>Model</strong> solution folder with name ClubManager.Model.
+* Now let us add a new Class Library project in **Model** solution folder with name ClubManager.Model.
 * Once added the project delete Class1.cs from the new created project and add a new class MemberShipPlan.cs.
 * Now add all the properties discussed about Model above in the class file.
 * Override ToString() and return Name as this is what we would like to see whenever we call MemberShipPlanObject.ToString()
@@ -215,7 +215,7 @@ Since it is a windows application we will be having a menu bar containing all th
 
 * First of all Add a New Item -> MDI Parent Form named frmMain to our ClubManager Project.
 * Delete Form1.cs as we are not going to use this empty form.
-* Open Program.cs and change Application.Run(new <strong>Form1</strong>()); to Application.Run(new <strong>frmMain</strong>());
+* Open Program.cs and change Application.Run(new **Form1**()); to Application.Run(new **frmMain**());
 * When you view frmMain in designer view you will see a lot of menu items viz File, Edit, View, etc which we do not require at all. So delete them one by one.
 * You should also delete all the icons from toolStrip just below MenuItem.
 * Once empty let us Create a New Menu Item "Membership Plan" and under it create another item "New Plan". Great we have created menu item.
