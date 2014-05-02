@@ -9,13 +9,16 @@ namespace Core.Configuration
 	public class ConfigurationManager
 	{
 		#region Configuration Values
+
 		/// <summary>
 		/// XML Configuration nodes mapped against node key
 		/// </summary>
 		public static Dictionary<string, XElement> ConfigValue = new Dictionary<string, XElement>();
+
 		#endregion Configuration Values
 
 		#region XML Configuration Keys
+
 		/// <summary>
 		/// Key to be searched in App.Config/Web.Config
 		/// </summary>
@@ -24,6 +27,7 @@ namespace Core.Configuration
 		#endregion XML Configuration Keys
 
 		#region Constructors
+
 		/// <summary>
 		/// Static Initializer which is invoked automatically as required
 		/// </summary>

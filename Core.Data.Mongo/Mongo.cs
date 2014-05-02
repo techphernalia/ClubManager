@@ -1,6 +1,5 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Collections.Generic;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
 
@@ -10,9 +9,10 @@ namespace Core.Data.Mongo
 	{
 		#region Private Objects
 		private static MongoDatabase _DB = null;
-		#endregion
+		#endregion Private Objects
 
 		#region Constructors
+
 		static Mongo()
 		{
 			_DB = new MongoServer
@@ -23,9 +23,11 @@ namespace Core.Data.Mongo
 				}
 			).GetDatabase(DBName);
 		}
+
 		#endregion Constructors
 
 		#region Context Implementation
+
 		public override List<T> ListAll<T>(string table)
 		{
 			return _DB.GetCollection<T>(GetTableName(table)).FindAllAs<T>().ToList();
@@ -52,6 +54,7 @@ namespace Core.Data.Mongo
 				.FindAndModify(Query.EQ("_id", key), null,
 				Update.Inc("Value", 1), true, true).ModifiedDocument.GetElement("Value").Value.ToString();
 		}
+
 		#endregion Context Implementation
 	}
 }

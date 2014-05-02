@@ -1,21 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
+using ClubManager.Data;
 using ClubManager.Model;
 using Core;
 using Core.Data;
-using ClubManager.Data;
 
 namespace ClubManager
 {
 	public partial class frmMemberShipPlan : Form
 	{
 		private MemberShipPlan MemberShipPlanBeforeEdit = null;
+
 		public frmMemberShipPlan()
 		{
 			InitializeComponent();
@@ -107,7 +102,7 @@ namespace ClubManager
 			this.Focus();
 		}
 
-		public void EditPlan(MemberShipPlan MemberShipPlan )
+		public void EditPlan(MemberShipPlan MemberShipPlan)
 		{
 			MemberShipPlanBeforeEdit = MemberShipPlan;
 			btnReset_Click(null, null);
@@ -121,11 +116,11 @@ namespace ClubManager
 			var senderGrid = sender as DataGridView;
 
 			//Check if click is in valid cell
-			if (e.RowIndex >= 0 && e.ColumnIndex >= 0 && senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn )
+			if (e.RowIndex >= 0 && e.ColumnIndex >= 0 && senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn)
 			{
-				switch(senderGrid.Columns[e.ColumnIndex].HeaderText )
+				switch (senderGrid.Columns[e.ColumnIndex].HeaderText)
 				{
-					case"Edit":
+					case "Edit":
 						EditPlan((MemberShipPlan)senderGrid.Rows[e.RowIndex].DataBoundItem);
 						break;
 				}
