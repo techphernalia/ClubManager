@@ -351,3 +351,24 @@ namespace Core.Configuration
 </pre>
 
 Github : <a href="https://github.com/techphernalia/ClubManager/tree/9614cc3693833eabd2eb1fdeed7365708f6502df" title="Browse this commit on Github" target="_blank" >https://github.com/techphernalia/ClubManager/tree/9614cc3693833eabd2eb1fdeed7365708f6502df</a>
+
+Add App.config(Add->New Item->Application Configuration Project) to main project ClubManager and add a key "AppConfig" with a value "Config.xml".
+
+<pre lang="xml">
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <appSettings>
+    <add key="AppConfig" value="Config.xml"/>
+  </appSettings>
+</configuration>
+</pre>
+
+Next we need to add Config.xml file in the project (Add->New Item->XML File) We will use Club as our Root Node so add the node to file and save it.
+<pre lang="xml">
+<?xml version="1.0" encoding="utf-8" ?>
+<Club>
+</Club>
+</pre>
+
+We want this Config.xml to be available to us at runtime so we change the "Copy To Output" property of file to "Copy if newer". Build the project and you will find Config.xml in your bin/Debug directory.
+
