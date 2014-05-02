@@ -1,4 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Club>
-  
+  <DB>
+    <Type>Mongo</Type>
+    <Host>127.0.0.1</Host>
+    <Port>27017</Port>
+    <Auth>False</Auth>
+    <User></User>
+    <Pass></Pass>
+    <Name>BodyBuilding</Name>
+    <Prefix></Prefix>
+    <Suffix></Suffix>
+    <Config>MyConfig</Config>
+  </DB>
 </Club>

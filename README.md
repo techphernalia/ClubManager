@@ -372,3 +372,75 @@ Next we need to add Config.xml file in the project (Add->New Item->XML File) We 
 
 We want this Config.xml to be available to us at runtime so we change the "Copy To Output" property of file to "Copy if newer". Build the project and you will find Config.xml in your bin/Debug directory.
 
+Github : <a href="https://github.com/techphernalia/ClubManager/tree/22efc9de7929d171bae217333c5904ba3c9dddf9" title="Browse this commit on Github" target="_blank" >https://github.com/techphernalia/ClubManager/tree/22efc9de7929d171bae217333c5904ba3c9dddf9</a>
+
+As we know key for our Database is "DB" so we need to add node DB to our Config.xml with various nodes as we defined in our Core.Data.Context.cs. Let us go ahead and add these values and find below the final Config.xml after adding required values. We will be using MongoDB as our database so we put Type as Mongo and other properties as applicable.
+
+<pre lang="xml">
+<?xml version="1.0" encoding="utf-8" ?>
+<Club>
+  <DB>
+    <Type>Mongo</Type>
+    <Host>127.0.0.1</Host>
+    <Port>27017</Port>
+    <Auth>False</Auth>
+    <User></User>
+    <Pass></Pass>
+    <Name>BodyBuilding</Name>
+    <Prefix></Prefix>
+    <Suffix></Suffix>
+    <Config>MyConfig</Config>
+  </DB>
+</Club>
+</pre>
+
+But we have not yet written any code to interact with MongoDB. We will now code the same. As discussed earlier we will write all Implementation specific database code in separate projects so we add a new Class Library Project Core.Data.Mongo in Core Solution folder. Delete Class1.cs added in the Core.Data.Mongo project and add a new class named Mongo.cs
+
+Since Core.Data.Mongo.Mongo will be extending Core.Data.Context so add a reference to project Core.Data in Core.Data.Mongo and extend Core.Data.Context. We also require MongoDB drivers for MongoDB Connectivity. We download it from official MongoDB website and add the dlls in our Reference folder (We manually create a Reference folder in our filesystem and paste dlls there and then Add->Existing Item->Select both dlls and add it to Solution Folder) and refer it in Core.Data.Mongo project from References folder.
+
+We should first create a MongoDatabase instance and store it so that other methods can use the same. For demonstration purpose only we will connect with an instance which is not password protected and later on update it to support password protected instances as well. We are doing all this in static constructor so that DB instance is created automatically as soon as it is required.
+
+<pre lang="csharp">
+#region Private Objects
+private static MongoDatabase _DB = null;
+#endregion
+
+#region Constructors
+static Mongo()
+{
+	_DB = new MongoServer
+	(
+		new MongoServerSettings
+		{
+			Server = new MongoServerAddress(Host, Port)
+		}
+	).GetDatabase(DBName);
+}
+#endregion Constructors
+</pre>
+
+Next we add code to ListAll() the documents: First we get Collection, Find All the documents, Cast it to Proper Object and Enumerate it to List
+<pre lang="csharp">
+public override List<T> ListAll<T>(string table)
+{
+	return _DB.GetCollection<T>(GetTableName(table)).FindAllAs<T>().ToList();
+}
+</pre>
+
+Similarly we add method implementation for AddNew(), Save(), and Where()
+
+<pre lang="csharp">
+public override void AddNew<T>(T record, string table)
+{
+	_DB.GetCollection(GetTableName(table)).Insert<T>(record);
+}
+public override void Save<T>(T record, string table)
+{
+	_DB.GetCollection(GetTableName(table)).Save<T>(record);
+}
+public override List<T> Where<T>(string query, string table)
+{
+	return _DB.GetCollection(GetTableName(table)).FindAs<T>(Query.Where(query)).ToList();
+}
+</pre>
+

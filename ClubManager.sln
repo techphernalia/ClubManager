@@ -12,6 +12,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Model", "Model", "{3D26BC7F-7DAE-42A8-8663-450004D494A2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Reference", "Reference", "{7BDA8423-17A1-45EF-98F8-6F4769E3C93E}"
+	ProjectSection(SolutionItems) = preProject
+		Reference\MongoDB.Bson.dll = Reference\MongoDB.Bson.dll
+		Reference\MongoDB.Driver.dll = Reference\MongoDB.Driver.dll
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClubManager.Model", "ClubManager.Model\ClubManager.Model.csproj", "{4C6F894E-CFDA-46B8-B14C-4E87252CC3D4}"
 EndProject
@@ -20,6 +24,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Data", "Core.Data\Core.Data.csproj", "{C4CD1C4F-9E7D-4DE6-BD97-EDAADEB16334}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{19CCD2BA-6C1F-4C01-951F-5F5B955A2490}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Data.Mongo", "Core.Data.Mongo\Core.Data.Mongo.csproj", "{EF11AAB8-A592-413A-8F2D-385587359B0B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +87,16 @@ Global
 		{19CCD2BA-6C1F-4C01-951F-5F5B955A2490}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{19CCD2BA-6C1F-4C01-951F-5F5B955A2490}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{19CCD2BA-6C1F-4C01-951F-5F5B955A2490}.Release|x86.ActiveCfg = Release|Any CPU
+		{EF11AAB8-A592-413A-8F2D-385587359B0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF11AAB8-A592-413A-8F2D-385587359B0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF11AAB8-A592-413A-8F2D-385587359B0B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{EF11AAB8-A592-413A-8F2D-385587359B0B}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{EF11AAB8-A592-413A-8F2D-385587359B0B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EF11AAB8-A592-413A-8F2D-385587359B0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF11AAB8-A592-413A-8F2D-385587359B0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF11AAB8-A592-413A-8F2D-385587359B0B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{EF11AAB8-A592-413A-8F2D-385587359B0B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{EF11AAB8-A592-413A-8F2D-385587359B0B}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -90,6 +106,7 @@ Global
 		{C73AAA10-064A-4C72-A2D9-6CF1F0EB035A} = {42253E36-A5CF-40DC-BDF2-7688746DACC5}
 		{C4CD1C4F-9E7D-4DE6-BD97-EDAADEB16334} = {42253E36-A5CF-40DC-BDF2-7688746DACC5}
 		{19CCD2BA-6C1F-4C01-951F-5F5B955A2490} = {42253E36-A5CF-40DC-BDF2-7688746DACC5}
+		{EF11AAB8-A592-413A-8F2D-385587359B0B} = {42253E36-A5CF-40DC-BDF2-7688746DACC5}
 		{4C6F894E-CFDA-46B8-B14C-4E87252CC3D4} = {3D26BC7F-7DAE-42A8-8663-450004D494A2}
 	EndGlobalSection
 EndGlobal
