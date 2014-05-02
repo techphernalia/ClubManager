@@ -5,11 +5,11 @@
     <Host>127.0.0.1</Host>
     <Port>27017</Port>
     <Auth>False</Auth>
-    <User></User>
-    <Pass></Pass>
-    <Name>BodyBuilding</Name>
+    <Username></Username>
+    <Password></Password>
+    <DBName>MyClub</DBName>
     <Prefix></Prefix>
     <Suffix></Suffix>
-    <Config>MyConfig</Config>
+    <ConfigTable>MyConfig</ConfigTable>
   </DB>
 </Club>

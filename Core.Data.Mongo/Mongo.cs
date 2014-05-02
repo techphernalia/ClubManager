@@ -45,6 +45,13 @@ namespace Core.Data.Mongo
 		{
 			return _DB.GetCollection(GetTableName(table)).FindAs<T>(Query.Where(query)).ToList();
 		}
+
+		public override string GetID(string key)
+		{
+			return _DB.GetCollection(GetTableName(ConfigTable))
+				.FindAndModify(Query.EQ("_id", key), null,
+				Update.Inc("Value", 1), true, true).ModifiedDocument.GetElement("Value").Value.ToString();
+		}
 		#endregion Context Implementation
 	}
 }

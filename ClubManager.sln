@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Data.Mongo", "Core.Data.Mongo\Core.Data.Mongo.csproj", "{EF11AAB8-A592-413A-8F2D-385587359B0B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClubManager.Data", "ClubManager.Data\ClubManager.Data.csproj", "{66E2B209-68DD-4872-AA50-765521C1D0FA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -97,6 +99,16 @@ Global
 		{EF11AAB8-A592-413A-8F2D-385587359B0B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{EF11AAB8-A592-413A-8F2D-385587359B0B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{EF11AAB8-A592-413A-8F2D-385587359B0B}.Release|x86.ActiveCfg = Release|Any CPU
+		{66E2B209-68DD-4872-AA50-765521C1D0FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66E2B209-68DD-4872-AA50-765521C1D0FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66E2B209-68DD-4872-AA50-765521C1D0FA}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{66E2B209-68DD-4872-AA50-765521C1D0FA}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{66E2B209-68DD-4872-AA50-765521C1D0FA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{66E2B209-68DD-4872-AA50-765521C1D0FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66E2B209-68DD-4872-AA50-765521C1D0FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66E2B209-68DD-4872-AA50-765521C1D0FA}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{66E2B209-68DD-4872-AA50-765521C1D0FA}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{66E2B209-68DD-4872-AA50-765521C1D0FA}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -107,6 +119,7 @@ Global
 		{C4CD1C4F-9E7D-4DE6-BD97-EDAADEB16334} = {42253E36-A5CF-40DC-BDF2-7688746DACC5}
 		{19CCD2BA-6C1F-4C01-951F-5F5B955A2490} = {42253E36-A5CF-40DC-BDF2-7688746DACC5}
 		{EF11AAB8-A592-413A-8F2D-385587359B0B} = {42253E36-A5CF-40DC-BDF2-7688746DACC5}
+		{66E2B209-68DD-4872-AA50-765521C1D0FA} = {5EAB8570-FC12-4166-9FC4-2718E73B4FE1}
 		{4C6F894E-CFDA-46B8-B14C-4E87252CC3D4} = {3D26BC7F-7DAE-42A8-8663-450004D494A2}
 	EndGlobalSection
 EndGlobal

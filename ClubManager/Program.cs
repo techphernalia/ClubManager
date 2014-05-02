@@ -15,7 +15,7 @@ namespace ClubManager
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new frmMain());
+			Application.Run(FormManager.Main);
 		}
 	}
 }

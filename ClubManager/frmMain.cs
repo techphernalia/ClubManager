@@ -14,5 +14,11 @@ namespace ClubManager
 		{
 
 		}
+
+		private void planManagerToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			FormManager.MemberShipPlan.Show();
+			FormManager.MemberShipPlan.Focus();
+		}
 	}
 }

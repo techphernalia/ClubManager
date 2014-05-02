@@ -444,3 +444,412 @@ public override List<T> Where<T>(string query, string table)
 }
 </pre>
 
+
+Github : <a href="https://github.com/techphernalia/ClubManager/tree/e399865afb4ff249a73a5754cbadd3a0b0d97c9a" title="Browse this commit on Github" target="_blank" >https://github.com/techphernalia/ClubManager/tree/e399865afb4ff249a73a5754cbadd3a0b0d97c9a</a>
+
+We have written our Data Layer but we are yet to configure our database. So we go ahead and setup our MongoDB database next.
+
+Go to https://www.mongodb.org/downloads and download the version applicable for your operating system build.
+Once downloaded extract the content to a suitable location say D:\_SVNWork\Source\MongoDB
+Add two folders named data (to store database files) and log (to store log files) in the same directory (D:\_SVNWork\Source\MongoDB)
+We are going to use a configuration file to configure our database file and name it mongo.conf and going to place it at the same location as our MongoDB binaries (D:\_SVNWork\Source\MongoDB\bin\mongo.conf) with following content
+
+<pre>
+dbpath=..\data
+logpath=..\log\mongo-server.log
+verbose=vvvvv
+logappend=true
+</pre>
+
+In above file we are stating that our database files are going to be stored in data folder and logfile with name mongo-server.log in log folder. Log file is to be appended and logs are having a verbosity of vvvvv.
+
+whenever required run this MongoDB instance using following command from command prompt and location D:\_SVNWork\Source\MongoDB\bin 
+
+<pre>
+mongod -f mongo.conf
+</pre>
+
+<pre class="cmd">
+D:\_SVNWork\Source\MongoDB>dir
+ Volume in drive D is Durgesh
+
+ Directory of D:\_SVNWork\Source\MongoDB
+
+02-05-2014  20:38    <DIR>          .
+02-05-2014  20:38    <DIR>          ..
+02-05-2014  20:37    <DIR>          bin
+02-05-2014  20:43    <DIR>          data
+04-08-2013  10:03            35,181 GNU-AGPL-3.0
+02-05-2014  20:42    <DIR>          log
+04-08-2013  10:03             1,359 README
+04-08-2013  10:03            18,848 THIRD-PARTY-NOTICES
+               3 File(s)         55,388 bytes
+               5 Dir(s)  32,910,176,256 bytes free
+
+D:\_SVNWork\Source\MongoDB>cd bin
+
+D:\_SVNWork\Source\MongoDB\bin>dir
+ Volume in drive D is Durgesh
+
+ Directory of D:\_SVNWork\Source\MongoDB\bin
+
+02-05-2014  20:37    <DIR>          .
+02-05-2014  20:37    <DIR>          ..
+31-10-2013  21:47        11,273,728 bsondump.exe
+02-05-2014  20:41                78 mongo.conf
+31-10-2013  20:02         6,379,520 mongo.exe
+31-10-2013  20:13        11,329,536 mongod.exe
+31-10-2013  20:13        91,720,704 mongod.pdb
+31-10-2013  20:30        11,308,544 mongodump.exe
+31-10-2013  20:49        11,276,288 mongoexport.exe
+31-10-2013  21:37        11,289,600 mongofiles.exe
+31-10-2013  20:58        11,294,208 mongoimport.exe
+31-10-2013  21:27        11,272,704 mongooplog.exe
+31-10-2013  21:56        11,284,480 mongoperf.exe
+31-10-2013  20:39        11,299,328 mongorestore.exe
+31-10-2013  20:20         8,848,896 mongos.exe
+31-10-2013  20:20        70,765,568 mongos.pdb
+31-10-2013  21:08        11,304,960 mongostat.exe
+31-10-2013  21:17        11,276,288 mongotop.exe
+              16 File(s)    301,924,430 bytes
+               2 Dir(s)  32,910,176,256 bytes free
+
+D:\_SVNWork\Source\MongoDB\bin>type mongo.conf
+dbpath=..\data
+logpath=..\log\mongo-server.log
+verbose=vvvvv
+logappend=true
+D:\_SVNWork\Source\MongoDB\bin>mongod -f mongo.conf
+Fri May 02 20:50:30.637
+Fri May 02 20:50:30.639 warning: 32-bit servers don't have journaling enabled by default. Please use --journal if you want durability.
+Fri May 02 20:50:30.640
+all output going to: D:\_SVNWork\Source\MongoDB\bin\..\log\mongo-server.log
+</pre>
+
+When you do not require mongodb instance any more simply press Ctrl+C and it will stop normally.
+
+Let us go back to frmMemberShipPlan and write functionality for save. In order to save we get MemberShipPlan object from form and then call AddNew or Save depending upon MemberShipPlanBeforeEdit. So we create FormToObject so that it can be used again if required.
+
+<pre lang="csharp">
+		private MemberShipPlan FormToObject()
+		{
+			return new MemberShipPlan
+			{
+				MemberShip = txtMemberShip.Text,
+				Description = txtDescription.Text,
+				AnnualFee = txtAnnualFee.Text.ToDouble(),
+				MonthlyFee = txtMonthlyFee.Text.ToDouble(),
+				QuarterlyFee = txtQuarterlyFee.Text.ToDouble(),
+				HalfYearlyFee = txtHalfYearlyFee.Text.ToDouble(),
+				IsActive = chkIsActive.Checked
+			};
+		}
+</pre>
+
+How do we generate id of MemberShipPlan? We are writing an application which can use any database and not all of them support auto_increment field e.g. MongoDB. So we are going to implement our own ID Generation mechanism. We will create an abstract method GetID which will accept a key and get an incremented value for key from configuration table. Implementation depends on the database used and if the same supports auto_increment field we will return null and DB will handle the same.
+
+Core.Data.Context.cs
+public abstract string GetID(string key);
+
+Core.Data.Mongo.Mongo
+public override string GetID(string key)
+{
+	return _DB.GetCollection(GetTableName(ConfigTable))
+		.FindAndModify(Query.EQ("_id", key), null,
+		Update.Inc("Value", 1), true, true).ModifiedDocument.GetElement("Value").Value.ToString();
+}
+
+So, now we have ID generation method as well, but where do we maintain key strings. Since key is dependent on Projects so we can not store it in any of our Core projects, but it is independent on database as well so we create a new project ClubManager.Data and store it in DBConstants class.
+
+<pre lang="csharp">
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace ClubManager.Data
+{
+	public class DBConstants
+	{
+		#region Config Keys
+		public static string MemberShipPlanKey = "MemberShipPlan";
+		#endregion
+
+		#region Table Names
+		public static string MemberShipPlanTable = "MemberShipPlan";
+		#endregion
+	}
+}
+</pre>
+
+Let us now write the code to save MemberShipPlan
+
+<pre lang="csharp">
+		private void btnSave_Click(object sender, EventArgs e)
+		{
+			MemberShipPlan temp = FormToObject();
+			if (MemberShipPlanBeforeEdit == null)
+			{
+				temp._id = Context.DB.GetID(DBConstants.MemberShipPlanKey);
+				Context.DB.AddNew(temp, DBConstants.MemberShipPlanTable);
+			}
+			else
+			{
+				temp._id = MemberShipPlanBeforeEdit._id;
+				Context.DB.Save(temp, DBConstants.MemberShipPlanTable);
+				MemberShipPlanBeforeEdit = null;
+				btnReset_Click(null, null);
+			}
+		}
+</pre>
+
+Adding and Editing is done but what about listing them. We write listing code in new Method BindGrid(). We remove any existing columns from DataGridView, Set DataSource, Hide _id column and add Edit button in each row.
+<pre lang="csharp">
+		private void BindGrid()
+		{
+			//Clear all the columns
+			if (dgvMemberShipPlan.Columns.Count > 0)
+				dgvMemberShipPlan.Columns.Clear();
+
+			//Set Datasource
+			dgvMemberShipPlan.DataSource = Context.DB.ListAll<frmMemberShipPlan>(DBConstants.MemberShipPlanTable);
+
+			//Hide _id column
+			dgvMemberShipPlan.Columns["_id"].Visible = false;
+
+			//Add Edit button
+			DataGridViewButtonColumn EditColumn = new DataGridViewButtonColumn();
+			EditColumn.Text = "Edit";
+			EditColumn.HeaderText = "Edit";
+			EditColumn.UseColumnTextForButtonValue = true;
+			dgvMemberShipPlan.Columns.Add(EditColumn);
+		}
+</pre>
+
+We need to bind grid on form load, and after saving the data. So we call BindGrid() from frmMemberShipPlan() and in btnSave_Click()
+
+How about Adding Edit Button functionality. For this we explore CellClick Event of DataGridView
+<pre lang="csharp">
+private void dgvMemberShipPlan_CellClick(object sender, DataGridViewCellEventArgs e)
+{
+	//Get the DataGridView object
+	var senderGrid = sender as DataGridView;
+
+	//Check if click is in valid cell
+	if (e.RowIndex >= 0 && e.ColumnIndex >= 0 && senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn )
+	{
+		switch(senderGrid.Columns[e.ColumnIndex].HeaderText )
+		{
+			case"Edit":
+				EditPlan((MemberShipPlan)senderGrid.Rows[e.RowIndex].DataBoundItem);
+				break;
+		}
+	}
+}
+</pre>
+
+How about listing all code from frmMemberShipPlan.cs
+<pre lang="csharp">
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using ClubManager.Model;
+using Core;
+using Core.Data;
+using ClubManager.Data;
+
+namespace ClubManager
+{
+	public partial class frmMemberShipPlan : Form
+	{
+		private MemberShipPlan MemberShipPlanBeforeEdit = null;
+		public frmMemberShipPlan()
+		{
+			InitializeComponent();
+			BindGrid();
+		}
+
+		private void btnSave_Click(object sender, EventArgs e)
+		{
+			MemberShipPlan temp = FormToObject();
+			if (MemberShipPlanBeforeEdit == null)
+			{
+				temp._id = Context.DB.GetID(DBConstants.MemberShipPlanKey);
+				Context.DB.AddNew(temp, DBConstants.MemberShipPlanTable);
+			}
+			else
+			{
+				temp._id = MemberShipPlanBeforeEdit._id;
+				Context.DB.Save(temp, DBConstants.MemberShipPlanTable);
+				MemberShipPlanBeforeEdit = null;
+				btnReset_Click(null, null);
+			}
+			BindGrid();
+		}
+
+		private void btnReset_Click(object sender, EventArgs e)
+		{
+			if (MemberShipPlanBeforeEdit != null)
+			{
+				txtMemberShip.Text = MemberShipPlanBeforeEdit.MemberShip.ToString();
+				txtDescription.Text = MemberShipPlanBeforeEdit.Description.ToString();
+				txtMonthlyFee.Text = MemberShipPlanBeforeEdit.MonthlyFee.ToString();
+				txtQuarterlyFee.Text = MemberShipPlanBeforeEdit.QuarterlyFee.ToString();
+				txtHalfYearlyFee.Text = MemberShipPlanBeforeEdit.HalfYearlyFee.ToString();
+				txtAnnualFee.Text = MemberShipPlanBeforeEdit.AnnualFee.ToString();
+				chkIsActive.Checked = MemberShipPlanBeforeEdit.IsActive;
+			}
+			else
+			{
+				txtMemberShip.Text =
+					txtDescription.Text =
+					txtMonthlyFee.Text =
+					txtQuarterlyFee.Text =
+					txtHalfYearlyFee.Text =
+					txtAnnualFee.Text = "";
+				chkIsActive.Checked = true;
+			}
+		}
+
+		private MemberShipPlan FormToObject()
+		{
+			return new MemberShipPlan
+			{
+				MemberShip = txtMemberShip.Text,
+				Description = txtDescription.Text,
+				AnnualFee = txtAnnualFee.Text.ToDouble(),
+				MonthlyFee = txtMonthlyFee.Text.ToDouble(),
+				QuarterlyFee = txtQuarterlyFee.Text.ToDouble(),
+				HalfYearlyFee = txtHalfYearlyFee.Text.ToDouble(),
+				IsActive = chkIsActive.Checked
+			};
+		}
+
+		private void BindGrid()
+		{
+			//Clear all the columns
+			if (dgvMemberShipPlan.Columns.Count > 0)
+				dgvMemberShipPlan.Columns.Clear();
+
+			//Set Datasource
+			dgvMemberShipPlan.DataSource = Context.DB.ListAll<MemberShipPlan>(DBConstants.MemberShipPlanTable);
+
+			//Hide _id column
+			dgvMemberShipPlan.Columns["_id"].Visible = false;
+
+			//Add Edit button
+			DataGridViewButtonColumn EditColumn = new DataGridViewButtonColumn();
+			EditColumn.Text = "Edit";
+			EditColumn.HeaderText = "Edit";
+			EditColumn.UseColumnTextForButtonValue = true;
+			dgvMemberShipPlan.Columns.Add(EditColumn);
+		}
+
+		public void NewPlan()
+		{
+			MemberShipPlanBeforeEdit = null;
+			btnReset_Click(null, null);
+			this.Show();
+			this.Focus();
+		}
+
+		public void EditPlan(MemberShipPlan MemberShipPlan )
+		{
+			MemberShipPlanBeforeEdit = MemberShipPlan;
+			btnReset_Click(null, null);
+			this.Show();
+			this.Focus();
+		}
+
+		private void dgvMemberShipPlan_CellClick(object sender, DataGridViewCellEventArgs e)
+		{
+			//Get the DataGridView object
+			var senderGrid = sender as DataGridView;
+
+			//Check if click is in valid cell
+			if (e.RowIndex >= 0 && e.ColumnIndex >= 0 && senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn )
+			{
+				switch(senderGrid.Columns[e.ColumnIndex].HeaderText )
+				{
+					case"Edit":
+						EditPlan((MemberShipPlan)senderGrid.Rows[e.RowIndex].DataBoundItem);
+						break;
+				}
+			}
+		}
+	}
+}
+</pre>
+
+So we are all done. How do we run it? In order to run we need to Add Plan Manager in our Menu Bar, create an object of frmMemberShipPlan and call show on the same. But clicking the menu item again and again will result in multiple instances of frmMemberShipPlan, so we write our FormManger to handle all this.
+
+FormManager will have static instances of all the forms.
+
+<pre lang="csharp">
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace ClubManager
+{
+	public class FormManager
+	{
+		public static frmMemberShipPlan MemberShipPlan = new frmMemberShipPlan();
+		public static frmMain Main = new frmMain();
+
+		static FormManager()
+		{
+			MemberShipPlan.MdiParent = Main;
+		}
+	}
+}
+</pre>
+
+We also update our Program.cs to get Main form from our FormManager
+
+<pre lang="csharp">
+[STAThread]
+static void Main()
+{
+	Application.EnableVisualStyles();
+	Application.SetCompatibleTextRenderingDefault(false);
+	Application.Run(FormManager.Main);
+}
+</pre>
+
+How about adding menu now? Go to frmMain Designer View and Add Plan Manager under Membership Plan Menu item. In click event show and focus frmMemberShipPlan
+
+<pre lang="csharp">
+private void planManagerToolStripMenuItem_Click(object sender, EventArgs e)
+{
+	FormManager.MemberShipPlan.Show();
+	FormManager.MemberShipPlan.Focus();
+}
+</pre>
+
+But what if user closes the child form, our click event will fail. We need to prevent that so in FormClosing event simple cancel the event and Hide the form.
+<pre lang="csharp">
+		private void frmMemberShipPlan_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			e.Cancel = true;
+			this.Hide();
+		}
+</pre> 
+
+Before we run our application for the first time, please add the reference to project Core.Data.Mongo. You may ask why do we need to add this reference when my project is compiling perfectly and my application is not tightly bounded to any Database. Answer is Application requires this dll at runtime to perform its Data operations and you will have to copy this dll manually in that case. But if you add the reference then you need to not to do this manually.
+
+Also some Decoration on our Main Form.
+Set Text of form to "My Club", we will also make it configurable later on.
+Set WindowState to "Maximized".
+
+Go and run the application.
+
+Create few Plans
+Edit some plans
+Close the application and try playing around with the controls.

@@ -208,14 +208,20 @@
 			// 
 			// dgvMemberShipPlan
 			// 
+			this.dgvMemberShipPlan.AllowUserToAddRows = false;
+			this.dgvMemberShipPlan.AllowUserToDeleteRows = false;
+			this.dgvMemberShipPlan.AllowUserToOrderColumns = true;
 			this.dgvMemberShipPlan.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
 						| System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
+			this.dgvMemberShipPlan.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
 			this.dgvMemberShipPlan.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.dgvMemberShipPlan.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
 			this.dgvMemberShipPlan.Location = new System.Drawing.Point(12, 139);
 			this.dgvMemberShipPlan.Name = "dgvMemberShipPlan";
 			this.dgvMemberShipPlan.Size = new System.Drawing.Size(759, 207);
 			this.dgvMemberShipPlan.TabIndex = 1;
+			this.dgvMemberShipPlan.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMemberShipPlan_CellClick);
 			// 
 			// frmMemberShipPlan
 			// 
@@ -226,6 +232,7 @@
 			this.Controls.Add(this.grpPlanDetails);
 			this.Name = "frmMemberShipPlan";
 			this.Text = "MemberShipPlan";
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMemberShipPlan_FormClosing);
 			this.grpPlanDetails.ResumeLayout(false);
 			this.grpPlanDetails.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dgvMemberShipPlan)).EndInit();

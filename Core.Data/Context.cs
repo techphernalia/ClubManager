@@ -121,6 +121,8 @@ namespace Core.Data
 		public abstract void AddNew<T>(T record, string table);
 		public abstract void Save<T>(T record, string table);
 		public abstract List<T> Where<T>(string query, string table);
+
+		public abstract string GetID(string key);
 		#endregion Abstract Methods
 
 		#region Context Object

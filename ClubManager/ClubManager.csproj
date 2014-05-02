@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormManager.cs" />
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -85,9 +86,25 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ClubManager.Data\ClubManager.Data.csproj">
+      <Project>{66E2B209-68DD-4872-AA50-765521C1D0FA}</Project>
+      <Name>ClubManager.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ClubManager.Model\ClubManager.Model.csproj">
       <Project>{4C6F894E-CFDA-46B8-B14C-4E87252CC3D4}</Project>
       <Name>ClubManager.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core.Data.Mongo\Core.Data.Mongo.csproj">
+      <Project>{EF11AAB8-A592-413A-8F2D-385587359B0B}</Project>
+      <Name>Core.Data.Mongo</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core.Data\Core.Data.csproj">
+      <Project>{C4CD1C4F-9E7D-4DE6-BD97-EDAADEB16334}</Project>
+      <Name>Core.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{19CCD2BA-6C1F-4C01-951F-5F5B955A2490}</Project>
+      <Name>Core %28Core\Core%29</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

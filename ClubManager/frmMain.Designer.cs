@@ -31,7 +31,7 @@
 			this.components = new System.ComponentModel.Container();
 			this.menuStrip = new System.Windows.Forms.MenuStrip();
 			this.memberShipPlanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.newPlanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.planManagerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.statusStrip = new System.Windows.Forms.StatusStrip();
 			this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
 			this.toolTip = new System.Windows.Forms.ToolTip(this.components);
@@ -53,17 +53,17 @@
 			// memberShipPlanToolStripMenuItem
 			// 
 			this.memberShipPlanToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.newPlanToolStripMenuItem});
+            this.planManagerToolStripMenuItem});
 			this.memberShipPlanToolStripMenuItem.Name = "memberShipPlanToolStripMenuItem";
 			this.memberShipPlanToolStripMenuItem.Size = new System.Drawing.Size(112, 20);
 			this.memberShipPlanToolStripMenuItem.Text = "Membership Plan";
 			// 
-			// newPlanToolStripMenuItem
+			// planManagerToolStripMenuItem
 			// 
-			this.newPlanToolStripMenuItem.Name = "newPlanToolStripMenuItem";
-			this.newPlanToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-			this.newPlanToolStripMenuItem.Text = "New Plan";
-			this.newPlanToolStripMenuItem.Click += new System.EventHandler(this.newPlanToolStripMenuItem_Click);
+			this.planManagerToolStripMenuItem.Name = "planManagerToolStripMenuItem";
+			this.planManagerToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+			this.planManagerToolStripMenuItem.Text = "Plan Manager";
+			this.planManagerToolStripMenuItem.Click += new System.EventHandler(this.planManagerToolStripMenuItem_Click);
 			// 
 			// statusStrip
 			// 
@@ -100,7 +100,8 @@
 			this.IsMdiContainer = true;
 			this.MainMenuStrip = this.menuStrip;
 			this.Name = "frmMain";
-			this.Text = "frmMain";
+			this.Text = "My Club";
+			this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
 			this.menuStrip.ResumeLayout(false);
 			this.menuStrip.PerformLayout();
 			this.statusStrip.ResumeLayout(false);
@@ -117,8 +118,8 @@
 		private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
 		private System.Windows.Forms.ToolTip toolTip;
 		private System.Windows.Forms.ToolStripMenuItem memberShipPlanToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem newPlanToolStripMenuItem;
 		private System.Windows.Forms.ToolStrip toolStrip;
+		private System.Windows.Forms.ToolStripMenuItem planManagerToolStripMenuItem;
 	}
 }
 
