@@ -12,4 +12,14 @@
     <Suffix></Suffix>
     <ConfigTable>MyConfig</ConfigTable>
   </DB>
-</Club>
+  <MemberProperty>
+    <Property1>Height</Property1>
+    <Property2>Weight</Property2>
+    <Property3>Blood Group</Property3>
+    <Property4>RH Factor</Property4>
+    <Property5>Hobby</Property5>
+    <Property6>Allergy</Property6>
+    <Property7>Timing</Property7>
+    <Property8>Duration</Property8>
+  </MemberProperty>
+</Club> 
